@@ -1,0 +1,11 @@
+
+task main()
+{
+	float batteryLife = getBatteryVoltage();
+	displayBigTextLine(3, "%f volts", batteryLife);
+	setMotorSpeed (motorB,50);
+	setMotorSpeed (motorC,50);
+	float currentSpeed= getMotorSpeed(motorB);
+	displayBigTextLine(6, "%f speed", currentSpeed);
+	wait1Msec(5000);
+}
