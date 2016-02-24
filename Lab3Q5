@@ -1,0 +1,50 @@
+task main()
+{
+//chooses a random number between 0 and 1
+
+int speed;
+int rand_speed=rand() % 40;
+speed=40+rand_speed;
+
+	//this code instructes the robot to go straight
+	motor[motorB]=speed;
+	motor[motorC]=speed;
+
+	wait1Msec(105000/speed);
+	
+//This code instructs the robot to make a 90 degree turn to the left
+	motor[motorB]=0;
+	motor[motorC]=speed;
+
+	wait1Msec(32500/speed);
+	
+	//this code instructes the robot to go straight
+	motor[motorB]=speed;
+	motor[motorC]=speed;
+
+	wait1Msec(100000/speed);
+	
+	//This code instructs the robot to make a 90 degree turn to the left
+	motor[motorB]=0;
+	motor[motorC]=speed;
+
+	wait1Msec(32500/speed);
+	
+	//this code instructes the robot to go straight
+	motor[motorB]=speed;
+	motor[motorC]=speed;
+
+	wait1Msec(35000/speed);
+	
+	//This code instructs the robot to make a 90 degree turn to the left
+	motor[motorB]=0;
+	motor[motorC]=speed;
+	
+	wait1Msec(32500/speed);
+	
+	//this code instructes the robot to go straight
+	motor[motorB]=speed;
+	motor[motorC]=speed;
+	
+	wait1Msec(50000/speed);
+}
