@@ -1,0 +1,30 @@
+#pragma config(Sensor, S2,     Sonar,          sensorEV3_Ultrasonic)
+
+
+task main()
+{
+	int i=0;
+	int currentDistance=0;
+	const int distanceToMaintain = 10;
+	while (i==0)
+	{
+	
+		currentDistance = SensorValue[Sonar];
+		
+		if ((distanceToMaintain - currentDistance) > 2)
+		{
+			setMotorSpeed (motorB,-50);
+			setMotorSpeed (motorC,-50);
+			
+			wait1Msec(1000);
+			i=1;
+		}
+	
+		else
+		{
+			setMotorSpeed (motorB,50);
+			setMotorSpeed (motorC,50);
+			
+		}
+}
+	}
