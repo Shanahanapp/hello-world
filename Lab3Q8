@@ -1,0 +1,26 @@
+#pragma config(Sensor, S1,     Touch,          sensorEV3_Touch)
+
+
+task main()
+{
+	int i=0;
+	while (i==0)
+
+	if (SensorValue[Touch])
+	{
+		setMotorSpeed (motorB,-50);
+		setMotorSpeed (motorC,-50);
+
+		wait1Msec(1000);
+		i=1;
+	}
+
+	else
+	{
+		setMotorSpeed (motorB,50);
+		setMotorSpeed (motorC,50);
+
+	}
+
+
+}
