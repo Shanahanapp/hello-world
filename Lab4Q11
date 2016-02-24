@@ -1,0 +1,52 @@
+#pragma config(Sensor, S1,     Touch,          sensorEV3_Touch)
+#pragma config(Sensor, S2,     Sonar,          sensorEV3_Ultrasonic)
+task main()
+{
+	//this code instructes the robot to go straight
+	int i=0;
+	int currentDistance=0;
+	const int distanceToMaintain = 10;
+	
+	while (i<3)
+	{
+		currentDistance = SensorValue[Sonar];
+		
+	if ((distanceToMaintain - currentDistance) > 2)
+	{
+		setMotorSpeed (motorB,-50);
+		setMotorSpeed (motorC,-50);
+
+		wait1Msec(800);
+		
+		setMotorSpeed (motorB,0);
+		setMotorSpeed (motorC,50);
+
+		wait1Msec(750);
+		i++;
+			
+	}
+		else
+	{
+		setMotorSpeed (motorB,50);
+		setMotorSpeed (motorC,50);
+	}
+	
+	if(SensorValue[Touch])
+	{
+		{
+		setMotorSpeed (motorB,-50);
+		setMotorSpeed (motorC,-50);
+
+		wait1Msec(1000);
+		i=10;
+	}
+}
+
+}
+if(i<9)
+	{
+		setMotorSpeed (motorB,50);
+		setMotorSpeed (motorC,50);
+		wait1Msec(1000);
+	}
+}
