@@ -1,0 +1,27 @@
+#pragma config(Sensor, S3,     lightSensor,    sensorEV3_Color)
+
+task main()
+{
+int lines=0;
+int sense=0;
+
+while(1==1)
+	{
+		motor[motorC]=35;
+		motor[motorB]=35;
+		wait1Msec(1);
+
+		if(SensorValue(lightSensor)<45)
+		{
+			sense=1;
+		}
+
+		if(SensorValue(lightSensor)>45&&sense==1)
+		{
+			lines++;
+			sense=0;
+		}
+			displayBigTextLine(4,"crossed %d lines",lines);
+	}
+
+}
