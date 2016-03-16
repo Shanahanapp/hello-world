@@ -1,0 +1,35 @@
+#pragma config(Sensor, S3,     lightSensor,    sensorEV3_Color)
+#pragma config(Sensor, S2,     touchSensor,    sensorEV3_Touch)
+
+int findThreshold();
+int black=0;
+int white=0;
+task main()
+{
+	int threshold=0;
+	threshold=findThreshold();
+	displayBigTextLine(4,"%d",threshold);                               
+	wait1Msec(2000);
+
+}
+
+int findThreshold()
+{
+	int threshold=0;
+	while(SensorValue(touchSensor)==0)
+	{
+	}
+	
+	black=SensorValue(lightSensor);
+	
+	wait1Msec(2000);
+	while(SensorValue(touchSensor)==0)
+	{
+	}
+	
+	white=SensorValue(lightSensor);
+
+	
+	threshold=(black+white)/2;
+	return(threshold);
+}
