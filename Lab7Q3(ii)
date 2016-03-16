@@ -1,0 +1,63 @@
+#pragma config(Sensor, S3,     lightSensor,    sensorEV3_Color)
+#pragma config(Sensor, S2,     touchSensor,    sensorEV3_Touch)
+
+int findThreshold();
+void forwardLines(int linesPassed, int threshold);
+
+int black=0;
+int white=0;
+task main()
+{
+	int threshold=0;
+	int linesPassed=5;
+	threshold=findThreshold();   
+	wait1Msec(2000);
+	
+	forwardLines(linesPassed, threshold);
+
+}
+
+int findThreshold()
+{
+	int threshold=0;
+	while(SensorValue(touchSensor)==0)
+	{
+	}
+	
+	black=SensorValue(lightSensor);
+	
+	wait1Msec(2000);
+	while(SensorValue(touchSensor)==0)
+	{
+	}
+	
+	white=SensorValue(lightSensor);
+
+	
+	threshold=(black+white)/2;
+	return(threshold);
+}
+
+void forwardLines(int linesPassed, int threshold)
+{
+		int sense=0;
+		int lines=0;
+
+		while(lines<linesPassed)
+		{
+		motor[motorC]=35;
+		motor[motorB]=35;
+		wait1Msec(1);
+		if(SensorValue(lightSensor)<threshold)
+		{
+			sense=1;
+		}
+
+		if(SensorValue(lightSensor)>threshold&&sense==1)
+		{
+			lines++;
+			sense=0;
+		}
+	}
+}
+		
