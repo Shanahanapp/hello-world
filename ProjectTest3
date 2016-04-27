@@ -54,7 +54,7 @@ task main()
 				gridCols++;
 				gridRows=0;
 			}
-		if(rowCntr==6&&colCntr==9)
+		if(rowCntr==6&&colCntr==9) //THIS IF SHOULD BE ONE CURLY BRACE LOWER YOU BIG IDIOT
 		{
 			motor[motorB]=0;
 		motor[motorC]=0;
