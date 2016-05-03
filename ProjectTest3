@@ -10,16 +10,20 @@ void turnLeft1();
 void turnLeft2();
 void detection();
 void testChars();
+void findStart();
 
 char grid[7][9];
 int rowCntr=1;
 int colCntr=1;
 int gridRows=0;
 int gridCols=0;
+float firstPosition=0.0;
 string filename = "testFile";
+int blackSquares=0;
 
 task main()
 {
+	findStart();
 	while(colCntr<10)
 	{
 		//	displayBigTextLine(4,"%d",colCntr);
@@ -54,16 +58,16 @@ task main()
 				gridCols++;
 				gridRows=0;
 			}
+	}
 		if(rowCntr==6&&colCntr==9) //THIS IF SHOULD BE ONE CURLY BRACE LOWER YOU BIG IDIOT
 		{
 			motor[motorB]=0;
 		motor[motorC]=0;
 			break;
 		}
-	}
 
 }
-//testChars();
+testChars();
 }
 
 
@@ -150,6 +154,7 @@ void detection()
 	else
 	{
 		grid[gridRows][gridCols]='0';
+		blackSquares++;
 	}
 }
 
@@ -164,10 +169,19 @@ void testChars()
   string string1 = "\n";
   int strlen1 = strlen(string1);
   char readValue;
+  
+  string string2 = "Start position is 1 ";
+  int strlen2 = strlen(string2);
 
   // Open the file for writing and return a handle,
   // which we can use for subsequent writes
   fileHandle = fileOpenWrite(filename);
+  fileWriteData(fileHandle, string2, strlen2);
+  //firstPosition=1.0;
+  string fp1 = firstPosition; //casts the float value as a string to bypass a printing error
+  int strlenfp1 = strlen(fp1);
+  fileWriteData(fileHandle, fp1, strlenfp1);
+  fileWriteData(fileHandle, string1, strlen1);
   for (int i = 0; i < 9; i++)
   {
   	if(i==1||i==3||i==5||i==7)
@@ -210,3 +224,54 @@ void testChars()
   // Close the file
   fileClose(fileHandle);
 }
+
+void findStart()
+ {
+   	int boundary=0;
+		float lineCntr=0.0;
+		int sense=0;
+
+	nMotorEncoder[motorB]=0;
+	while(boundary!=1)
+	{
+		displayBigTextLine(4,"%f",lineCntr);
+		displayBigTextLine(6,"%d",SensorValue(Light));
+		displayBigTextLine(8,"%d",sense);
+			motor[motorB]=30;
+  		motor[motorC]=30;
+  		if(SensorValue(Light)<45&&sense!=1)
+			{
+				if(time1(T1)<200)
+				{
+					turnLeft1();
+					turnLeft1();
+					motor[motorB]=30;
+					motor[motorC]=30;
+					wait1Msec(500);
+					boundary=1;
+					firstPosition=lineCntr;
+					motor[motorB]=0;
+					motor[motorC]=0;
+					displayBigTextLine(10,"%f",firstPosition);
+					wait1Msec(5000);
+				}
+				sense=1;
+				nMotorEncoder[motorB]=0;
+			}
+
+			if(SensorValue(Light)>45&&sense==1)
+			{
+					lineCntr++;
+					sense=0;
+					nMotorEncoder[motorB]=0;
+					clearTimer(T1);
+			}
+
+
+			if(sense==1&&nMotorEncoder[motorB]==290)
+			{
+				lineCntr++;
+				nMotorEncoder[motorB]=0;
+			}
+		}
+	}
